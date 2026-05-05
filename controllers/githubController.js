@@ -1,4 +1,4 @@
-const { analyzeGithubProfile } = require('../services/githubService');
+const { analyzeGithubProfile } = require('../services');
 
 const getGithubAnalysis = async (req, res, next) => {
   try {
