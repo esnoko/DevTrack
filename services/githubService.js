@@ -138,6 +138,89 @@ const buildLanguageBreakdown = (repos) => {
     .sort((a, b) => b.repositoryCount - a.repositoryCount);
 };
 
+const COMMIT_ACTIVITY_WEEKS = 12;
+
+const getISOWeekLabel = (date) => {
+  // Copy date so we don't mutate the original
+  const target = new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate()));
+
+  // ISO week: week containing Thursday; day 4 (Thu) sets the year
+  const dayOfWeek = target.getUTCDay() || 7; // treat Sunday (0) as 7
+  target.setUTCDate(target.getUTCDate() + 4 - dayOfWeek);
+
+  const yearStart = new Date(Date.UTC(target.getUTCFullYear(), 0, 1));
+  const weekNumber = Math.ceil(((target - yearStart) / 86400000 + 1) / 7);
+
+  return `${target.getUTCFullYear()}-W${String(weekNumber).padStart(2, '0')}`;
+};
+
+const buildExpectedWeeks = () => {
+  const weeks = [];
+  const now = new Date();
+
+  for (let i = COMMIT_ACTIVITY_WEEKS - 1; i >= 0; i--) {
+    const d = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate()));
+    d.setUTCDate(d.getUTCDate() - i * 7);
+    weeks.push(getISOWeekLabel(d));
+  }
+
+  // Deduplicate while preserving order (edge case: same week label at boundary)
+  return [...new Set(weeks)];
+};
+
+const fetchUserEvents = async (username) => {
+  const url = `${GITHUB_API_BASE_URL}/users/${encodeURIComponent(username)}/events?per_page=${PER_PAGE}`;
+
+  const headers = {
+    Accept: 'application/vnd.github+json',
+    'User-Agent': 'DevTrack-Analyzer'
+  };
+
+  if (GITHUB_TOKEN) {
+    headers.Authorization = `Bearer ${GITHUB_TOKEN}`;
+  }
+
+  const response = await fetch(url, { headers });
+
+  if (!response.ok) {
+    // Non-fatal: return empty array so the rest of the analysis still succeeds
+    return [];
+  }
+
+  const events = await response.json();
+  return Array.isArray(events) ? events : [];
+};
+
+const buildCommitActivity = (events) => {
+  const expectedWeeks = buildExpectedWeeks();
+  const cutoffDate = new Date();
+  cutoffDate.setUTCDate(cutoffDate.getUTCDate() - COMMIT_ACTIVITY_WEEKS * 7);
+
+  const weekMap = Object.fromEntries(expectedWeeks.map((w) => [w, 0]));
+
+  for (const event of events) {
+    if (event.type !== 'PushEvent') {
+      continue;
+    }
+
+    const eventDate = new Date(event.created_at);
+
+    if (eventDate < cutoffDate) {
+      continue;
+    }
+
+    const weekLabel = getISOWeekLabel(eventDate);
+
+    if (Object.prototype.hasOwnProperty.call(weekMap, weekLabel)) {
+      const commitCount =
+        event.payload && typeof event.payload.size === 'number' ? event.payload.size : 0;
+      weekMap[weekLabel] += commitCount;
+    }
+  }
+
+  return expectedWeeks.map((week) => ({ week, commits: weekMap[week] }));
+};
+
 const buildRepoQualityIndicators = (repos) => {
   const now = Date.now();
   const days180InMs = 180 * 24 * 60 * 60 * 1000;
@@ -189,13 +272,17 @@ const analyzeGithubProfile = async (username) => {
   }
 
   const analysisPromise = (async () => {
-    const repos = await fetchUserRepositories(username);
+    const [repos, events] = await Promise.all([
+      fetchUserRepositories(username),
+      fetchUserEvents(username)
+    ]);
 
     const data = {
       username,
       repositorySummary: buildRepositorySummary(repos),
       languageBreakdown: buildLanguageBreakdown(repos),
-      repoQualityIndicators: buildRepoQualityIndicators(repos)
+      repoQualityIndicators: buildRepoQualityIndicators(repos),
+      commitActivity: buildCommitActivity(events)
     };
 
     setCachedAnalysis(cacheKey, data);
