@@ -334,7 +334,6 @@ const buildInsights = (
   const totalCommits = commitActivity.reduce((sum, week) => sum + week.commits, 0);
 
   const recentActivity = commitActivity.slice(-4);
-  const recentCommits = recentActivity.reduce((sum, week) => sum + week.commits, 0);
 
   const totalRepos = repositorySummary.totalRepositories;
   const starsAndForks = repositorySummary.totalStars + repositorySummary.totalForks;
@@ -393,7 +392,7 @@ const buildInsights = (
     recommendationBase = 'Not ready for applications; focus on building consistent projects';
   }
 
-  const recommendation = `${recommendationBase} for ${topRole} roles (top role fit ${topRoleScore}).`;
+  const recommendation = `${recommendationBase} for ${topRole} roles.`;
 
   let summary = 'Limited public GitHub signal available for reliable interpretation.';
 
