@@ -16,7 +16,11 @@ const getGithubAnalysis = async (req, res, next) => {
 
     res.status(200).json({
       success: true,
-      data: analysis
+      data: analysis,
+      meta: {
+        cached: cacheHit,
+        timestamp: new Date().toISOString()
+      }
     });
   } catch (error) {
     next(error);
