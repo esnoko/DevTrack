@@ -1,18 +1,26 @@
 {
   "name": "frontend",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "private": true,
+  "description": "DevTrack frontend dashboard",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "commonjs",
+  "type": "module",
   "dependencies": {
     "@tailwindcss/vite": "^4.3.0",
+    "react": "^19.2.6",
+    "react-dom": "^19.2.6",
     "recharts": "^3.8.1",
     "tailwindcss": "^4.3.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^6.0.1",
+    "vite": "^8.0.12"
   }
 }
