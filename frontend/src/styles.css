@@ -1,0 +1,40 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-page: #f5f6f8;
+  --color-surface: #ffffff;
+  --color-line: #e3e6ea;
+  --color-primary: #18202b;
+  --color-muted: #5d6877;
+
+  --spacing-18: 4.5rem;
+}
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    background-color: var(--color-page);
+    color: var(--color-primary);
+    font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+    line-height: 1.5;
+  }
+}
+
+@layer components {
+  .app-shell {
+    min-height: 100vh;
+    background-color: var(--color-page);
+  }
+
+  .card {
+    border: 1px solid var(--color-line);
+    border-radius: 0.875rem;
+    background-color: var(--color-surface);
+    padding: 1.25rem;
+  }
+}
