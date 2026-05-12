@@ -1,5 +1,7 @@
 const GITHUB_API_BASE_URL = 'https://api.github.com';
 const PER_PAGE = 100;
+const MAX_EVENT_PAGES = 3;
+const COMMIT_ACTIVITY_WEEKS = 12;
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
 
 const fetchUserRepositories = async (username) => {
@@ -51,8 +53,6 @@ const fetchUserRepositories = async (username) => {
 };
 
 const fetchUserEvents = async (username) => {
-  const url = `${GITHUB_API_BASE_URL}/users/${encodeURIComponent(username)}/events?per_page=${PER_PAGE}`;
-
   const headers = {
     Accept: 'application/vnd.github+json',
     'User-Agent': 'DevTrack-Analyzer'
@@ -62,14 +62,40 @@ const fetchUserEvents = async (username) => {
     headers.Authorization = `Bearer ${GITHUB_TOKEN}`;
   }
 
-  const response = await fetch(url, { headers });
+  const cutoffDate = new Date();
+  cutoffDate.setUTCDate(cutoffDate.getUTCDate() - COMMIT_ACTIVITY_WEEKS * 7);
 
-  if (!response.ok) {
-    return [];
+  const events = [];
+
+  for (let page = 1; page <= MAX_EVENT_PAGES; page += 1) {
+    const url = `${GITHUB_API_BASE_URL}/users/${encodeURIComponent(username)}/events?per_page=${PER_PAGE}&page=${page}`;
+    const response = await fetch(url, { headers });
+
+    if (!response.ok) {
+      return events;
+    }
+
+    const pageData = await response.json();
+
+    if (!Array.isArray(pageData) || pageData.length === 0) {
+      break;
+    }
+
+    events.push(...pageData);
+
+    const oldestEvent = pageData[pageData.length - 1];
+    const oldestEventDate = oldestEvent && oldestEvent.created_at ? new Date(oldestEvent.created_at) : null;
+
+    if (oldestEventDate && oldestEventDate < cutoffDate) {
+      break;
+    }
+
+    if (pageData.length < PER_PAGE) {
+      break;
+    }
   }
 
-  const events = await response.json();
-  return Array.isArray(events) ? events : [];
+  return events;
 };
 
 module.exports = {
