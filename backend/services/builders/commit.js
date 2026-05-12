@@ -46,8 +46,16 @@ const buildCommitActivity = (events) => {
     const weekLabel = getISOWeekLabel(eventDate);
 
     if (Object.prototype.hasOwnProperty.call(weekMap, weekLabel)) {
-      const commitCount =
-        event.payload && typeof event.payload.size === 'number' ? event.payload.size : 0;
+      let commitCount = 1;
+
+      if (event.payload) {
+        if (Array.isArray(event.payload.commits) && event.payload.commits.length > 0) {
+          commitCount = event.payload.commits.length;
+        } else if (typeof event.payload.size === 'number' && event.payload.size > 0) {
+          commitCount = event.payload.size;
+        }
+      }
+
       weekMap[weekLabel] += commitCount;
     }
   }
