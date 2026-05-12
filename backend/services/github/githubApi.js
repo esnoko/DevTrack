@@ -28,6 +28,16 @@ const fetchUserRepositories = async (username) => {
       throw error;
     }
 
+    if (response.status === 403 || response.status === 429) {
+      const retryAfter = response.headers.get('Retry-After') || response.headers.get('X-RateLimit-Reset');
+      const error = new Error(
+        'GitHub API rate limit exceeded. Please wait a moment and try again, or add a GitHub token to increase the limit.'
+      );
+      error.statusCode = 429;
+      if (retryAfter) error.retryAfter = retryAfter;
+      throw error;
+    }
+
     if (!response.ok) {
       const error = new Error('Failed to fetch data from GitHub API');
       error.statusCode = response.status;
