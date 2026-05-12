@@ -3,7 +3,11 @@ const ErrorMessage = ({ message }) => {
     return null;
   }
 
-  return <p role="alert">{message}</p>;
+  return (
+    <div className="card border-red-300 bg-red-50" role="alert">
+      <p className="text-sm text-red-700">{message}</p>
+    </div>
+  );
 };
 
 export default ErrorMessage;
