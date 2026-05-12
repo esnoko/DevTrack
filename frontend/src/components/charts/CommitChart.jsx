@@ -10,11 +10,11 @@ import {
 
 const CommitChart = ({ data = [] }) => {
   return (
-    <section className="card">
+    <section className="card overflow-hidden min-w-0">
       <h2 className="text-base font-semibold tracking-tight text-primary">Commit Activity</h2>
       <p className="mt-0.5 text-xs text-muted">Weekly commits &mdash; last 12 weeks</p>
 
-      <div className="mt-5 h-64 w-full">
+      <div className="mt-5 h-52 w-full sm:h-64">
         <ResponsiveContainer width="100%" height="100%">
           <LineChart data={data} margin={{ top: 4, right: 8, left: -16, bottom: 4 }}>
             <CartesianGrid stroke="#e4e7ec" strokeDasharray="4 4" />
