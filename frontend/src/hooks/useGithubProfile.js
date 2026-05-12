@@ -3,6 +3,7 @@ import { fetchGithubProfile } from '../services/githubApi';
 
 export const useGithubProfile = (initialUsername = '') => {
   const [profile, setProfile] = useState(null);
+  const [metadata, setMetadata] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [username, setUsername] = useState(initialUsername);
@@ -14,6 +15,7 @@ export const useGithubProfile = (initialUsername = '') => {
     if (!trimmedUsername) {
       setError('Enter a GitHub username to continue.');
       setProfile(null);
+      setMetadata(null);
       return null;
     }
 
@@ -28,16 +30,18 @@ export const useGithubProfile = (initialUsername = '') => {
     setError('');
 
     try {
-      const nextProfile = await fetchGithubProfile(trimmedUsername, {
+      const result = await fetchGithubProfile(trimmedUsername, {
         signal: controller.signal
       });
 
-      setProfile(nextProfile);
-      return nextProfile;
+      setProfile(result?.profile || null);
+      setMetadata(result?.meta || null);
+      return result?.profile || null;
     } catch (requestError) {
       if (requestError.name !== 'AbortError') {
         setError(requestError.message || 'Failed to fetch GitHub profile.');
         setProfile(null);
+        setMetadata(null);
       }
 
       return null;
@@ -61,6 +65,7 @@ export const useGithubProfile = (initialUsername = '') => {
     username,
     setUsername,
     profile,
+    metadata,
     loading,
     error,
     loadProfile

@@ -1,7 +1,11 @@
+import { getScoreTone } from '../../utils/scoreTone';
+
 const RepoSummaryCard = ({ repositorySummary, hireabilityScore }) => {
   if (!repositorySummary) {
     return null;
   }
+
+  const hireabilityTone = getScoreTone(hireabilityScore);
 
   return (
     <section>
@@ -21,9 +25,15 @@ const RepoSummaryCard = ({ repositorySummary, hireabilityScore }) => {
           <p className="stat-value">{repositorySummary.totalForks}</p>
         </div>
 
-        <div className="stat-item" style={{ borderColor: '#bfdbfe', backgroundColor: '#eff6ff' }}>
-          <p className="stat-label" style={{ color: 'var(--color-accent)' }}>Hireability</p>
-          <p className="stat-value" style={{ color: 'var(--color-accent)' }}>{hireabilityScore}<span className="text-base font-medium" style={{ color: 'var(--color-accent)', opacity: 0.6 }}>/100</span></p>
+        <div
+          className="stat-item"
+          style={{ borderColor: hireabilityTone.border, backgroundColor: hireabilityTone.background }}
+        >
+          <p className="stat-label" style={{ color: hireabilityTone.text }}>Hireability</p>
+          <p className="stat-value" style={{ color: hireabilityTone.text }}>
+            {hireabilityScore}
+            <span className="text-base font-medium" style={{ color: hireabilityTone.text, opacity: 0.7 }}>/100</span>
+          </p>
         </div>
       </div>
 

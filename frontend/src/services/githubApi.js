@@ -47,5 +47,11 @@ export const fetchGithubProfile = async (username, options = {}) => {
   }
 
   const data = await response.json();
-  return data?.data || null;
+  return {
+    profile: data?.data || null,
+    meta: {
+      ...(data?.meta || {}),
+      cacheHeader: response.headers.get('X-Cache') || null
+    }
+  };
 };

@@ -8,10 +8,10 @@ import CommitChart from '../components/charts/CommitChart';
 import RoleFitChart from '../components/charts/RoleFitChart';
 import { useGithubProfile } from '../hooks/useGithubProfile';
 
-const EXAMPLE_USERNAMES = ['gaearon', 'torvalds', 'addyosmani', 'yyx990803'];
+const EXAMPLE_USERNAMES = ['esnoko', 'torvalds', 'addyosmani', 'yyx990803'];
 
 const Dashboard = () => {
-  const { profile, loading, error, loadProfile, setUsername } = useGithubProfile('');
+  const { profile, metadata, loading, error, loadProfile, setUsername } = useGithubProfile('');
 
   const handleSearch = (nextUsername) => {
     setUsername(nextUsername);
@@ -72,7 +72,7 @@ const Dashboard = () => {
         {/* Profile */}
         {!loading && !error && profile && (
           <div>
-            <HeaderCard username={profile.username} />
+            <HeaderCard username={profile.username} metadata={metadata} />
 
             <RepoSummaryCard
               repositorySummary={profile.repositorySummary}

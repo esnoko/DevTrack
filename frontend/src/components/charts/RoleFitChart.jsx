@@ -8,12 +8,7 @@ import {
   XAxis,
   YAxis
 } from 'recharts';
-
-const ROLE_COLORS = {
-  Frontend: '#0070f3',
-  Backend: '#111827',
-  Fullstack: '#6b7280'
-};
+import { getScoreTone } from '../../utils/scoreTone';
 
 const mapRoleFitToChartData = (roleFit = {}) => {
   return [
@@ -43,7 +38,7 @@ const RoleFitChart = ({ roleFit }) => {
             />
             <Bar dataKey="score" radius={[5, 5, 0, 0]} maxBarSize={56}>
               {chartData.map((entry) => (
-                <Cell key={entry.role} fill={ROLE_COLORS[entry.role] ?? '#111827'} />
+                <Cell key={entry.role} fill={getScoreTone(entry.score).text} />
               ))}
             </Bar>
           </BarChart>
