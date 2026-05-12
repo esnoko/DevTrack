@@ -16,9 +16,15 @@
     box-sizing: border-box;
   }
 
+  html {
+    overflow-x: hidden;
+  }
+
   body {
     margin: 0;
     min-height: 100vh;
+    overflow-x: hidden;
+    max-width: 100vw;
     background-color: var(--color-page);
     color: var(--color-primary);
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
@@ -38,15 +44,24 @@
     position: sticky;
     top: 0;
     z-index: 50;
-    height: 3.5rem;
     display: flex;
     align-items: center;
-    gap: 1.25rem;
-    padding: 0 1.5rem;
+    gap: 1rem;
+    padding: 0 1rem;
+    height: 3.5rem;
+    width: 100%;
+    min-width: 0;
     background-color: rgba(255, 255, 255, 0.88);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--color-line);
+  }
+
+  @media (min-width: 480px) {
+    .top-nav {
+      padding: 0 1.5rem;
+      gap: 1.25rem;
+    }
   }
 
   .brand {
@@ -62,7 +77,15 @@
   .page-content {
     max-width: 72rem;
     margin: 0 auto;
-    padding: 2.5rem 1.5rem 4rem;
+    padding: 1.5rem 1rem 4rem;
+    overflow-x: hidden;
+    min-width: 0;
+  }
+
+  @media (min-width: 640px) {
+    .page-content {
+      padding: 2.5rem 1.5rem 4rem;
+    }
   }
 
   /* ── Cards ── */
@@ -90,12 +113,18 @@
   }
 
   .stat-value {
-    font-size: 1.875rem;
+    font-size: 1.5rem;
     font-weight: 700;
     letter-spacing: -0.03em;
     color: var(--color-primary);
     line-height: 1.15;
     margin-top: 0.25rem;
+  }
+
+  @media (min-width: 640px) {
+    .stat-value {
+      font-size: 1.875rem;
+    }
   }
 
   /* ── Insight pill tags ── */
