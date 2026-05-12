@@ -5,22 +5,30 @@ const viteApiBaseUrl =
 
 const API_BASE_URL = viteApiBaseUrl || 'http://localhost:5000/api/v1';
 
+const classifyError = (response, rawMessage) => {
+  if (response.status === 404) {
+    return 'GitHub user not found. Check the username and try again.';
+  }
+
+  if (response.status === 429 || response.status === 403) {
+    return 'GitHub API rate limit reached. Please wait a moment and try again.';
+  }
+
+  if (response.status >= 500) {
+    return 'The DevTrack server encountered an error. Please try again shortly.';
+  }
+
+  return rawMessage || 'Something went wrong. Please try again.';
+};
+
 const extractErrorMessage = async (response) => {
   try {
     const payload = await response.json();
-
-    if (payload?.error?.message) {
-      return payload.error.message;
-    }
-
-    if (typeof payload?.message === 'string') {
-      return payload.message;
-    }
+    const raw = payload?.error?.message || payload?.message || null;
+    return classifyError(response, raw);
   } catch {
-    // Ignore parse failures and use status text fallback.
+    return classifyError(response, response.statusText);
   }
-
-  return response.statusText || 'Request failed';
 };
 
 export const fetchGithubProfile = async (username, options = {}) => {
