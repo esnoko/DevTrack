@@ -2,9 +2,9 @@
 
 > GitHub developer analytics platform — score, visualize, and interpret any GitHub profile in seconds.
 
-**Live demo (frontend):** _add your Vercel URL_
+**Live demo (frontend):** https://dev-track-lime.vercel.app/
 
-**Live API (backend):** _add your Render URL_/api/v1/health
+**Live API (backend):** https://devtrack-ejfe.onrender.com/api/v1/health
 
 **Status:** production-ready MVP
 
@@ -222,7 +222,7 @@ Quick ship order:
 1. Push to GitHub
 2. Import the repository in [vercel.com](https://vercel.com)
 3. Set **Root Directory** to `frontend`
-4. Add environment variable: `VITE_API_BASE_URL=https://your-backend-url.onrender.com/api/v1`
+4. Add environment variable: `VITE_API_BASE_URL=https://devtrack-ejfe.onrender.com/api/v1`
 5. (Optional) `frontend/vercel.json` is already included for SPA routing
 
 ### Backend → Render
