@@ -82,20 +82,21 @@ Example request:
 GET /api/v1/github/esnoko
 ```
 
+Example response shown for documentation purposes. Actual analytics vary based on live GitHub activity, cache state, and scoring updates.
+
 **Response:**
 ```json
 {
   "success": true,
   "data": {
     "username": "esnoko",
+    "hireabilityScore": 30,
     "repositorySummary": {
       "totalRepositories": 7,
       "totalStars": 5,
       "totalForks": 0,
-      "totalOpenIssues": 0,
       "mostStarredRepository": {
         "name": "HexSoftwares_Exclusive-Music-player",
-        "stars": 2,
         "url": "https://github.com/esnoko/HexSoftwares_Exclusive-Music-player"
       }
     },
@@ -104,56 +105,26 @@ GET /api/v1/github/esnoko
         "language": "CSS",
         "repositoryCount": 4,
         "percentage": 57.14
-      },
-      {
-        "language": "JavaScript",
-        "repositoryCount": 1,
-        "percentage": 14.29
       }
     ],
-    "repoQualityIndicators": {
-      "repositoriesAnalyzed": 7,
-      "repositoriesWithDescription": 4,
-      "repositoriesWithLicense": 1,
-      "repositoriesWithTopics": 4,
-      "recentlyUpdatedRepositories": 5
-    },
     "commitActivity": [
-      { "week": "2026-W09", "commits": 0 },
-      { "week": "2026-W10", "commits": 0 },
-      { "week": "2026-W11", "commits": 0 },
-      { "week": "2026-W12", "commits": 0 },
-      { "week": "2026-W13", "commits": 0 },
-      { "week": "2026-W14", "commits": 0 },
-      { "week": "2026-W15", "commits": 0 },
-      { "week": "2026-W16", "commits": 0 },
-      { "week": "2026-W17", "commits": 0 },
       { "week": "2026-W18", "commits": 0 },
       { "week": "2026-W19", "commits": 8 },
       { "week": "2026-W20", "commits": 8 }
     ],
-    "hireabilityScore": 30,
     "scoreBreakdown": [
       { "category": "Commit Consistency", "score": 7 },
-      { "category": "Repository Quality", "score": 14 },
-      { "category": "Project Engagement", "score": 6 },
-      { "category": "Activity Level", "score": 3 }
+      { "category": "Repository Quality", "score": 14 }
     ],
     "insights": {
       "summary": "Early to mid-stage profile; improving consistency and quality would help most.",
-      "strengths": [
-        "Has a baseline GitHub presence to build on."
-      ],
-      "weaknesses": [
-        "Commit history is inconsistent across recent weeks."
-      ],
       "roleFit": { "frontend": 33, "backend": 28, "fullstack": 31 },
       "recommendation": "Not ready for applications; focus on building consistent projects for frontend roles."
     }
   },
   "meta": {
-    "cached": true,
-    "timestamp": "2026-05-13T00:01:53.967Z"
+    "cached": false,
+    "timestamp": "2026-05-13T14:32:00.000Z"
   }
 }
 ```
