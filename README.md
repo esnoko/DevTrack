@@ -2,7 +2,11 @@
 
 > GitHub developer analytics platform — score, visualize, and interpret any GitHub profile in seconds.
 
-**Live demo:** _coming soon_
+**Live demo (frontend):** _add your Vercel URL_
+
+**Live API (backend):** _add your Render URL_/api/v1/health
+
+**Status:** production-ready MVP
 
 ---
 
@@ -208,12 +212,18 @@ The app will be available at `http://localhost:5173`.
 
 ## Deployment
 
+Quick ship order:
+1. Deploy backend on Render
+2. Deploy frontend on Vercel
+3. Add live links above
+
 ### Frontend → Vercel
 
 1. Push to GitHub
 2. Import the repository in [vercel.com](https://vercel.com)
 3. Set **Root Directory** to `frontend`
 4. Add environment variable: `VITE_API_BASE_URL=https://your-backend-url.onrender.com/api/v1`
+5. (Optional) `frontend/vercel.json` is already included for SPA routing
 
 ### Backend → Render
 
@@ -221,7 +231,22 @@ The app will be available at `http://localhost:5173`.
 2. Set **Root Directory** to `backend`
 3. Build command: `npm install`
 4. Start command: `npm start`
-5. Add environment variables: `PORT`, `GITHUB_TOKEN` (optional), `CACHE_TTL_SECONDS`
+5. Add environment variables: `GITHUB_TOKEN`, `CACHE_TTL_SECONDS=300`, `PORT=10000`
+6. Test health endpoint: `https://your-backend.onrender.com/api/v1/health`
+
+### One-Click Infra Config
+
+- `render.yaml` included at repo root for Render service defaults
+- `frontend/vercel.json` included for Vercel frontend build + SPA rewrites
+
+---
+
+## CV-Ready Highlights
+
+- Built a full-stack GitHub analytics platform for profile evaluation
+- Designed modular Node.js service architecture for scoring and insights
+- Implemented deterministic hireability scoring and recommendation logic
+- Developed a React + Recharts dashboard for analytics visualization
 
 ---
 
