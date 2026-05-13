@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: devtrack-api
+    runtime: node
+    rootDir: backend
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_VERSION
+        value: 22
+      - key: PORT
+        value: 10000
+      - key: CACHE_TTL_SECONDS
+        value: 300
+      - key: GITHUB_TOKEN
+        sync: false
