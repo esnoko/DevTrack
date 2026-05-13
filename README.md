@@ -16,7 +16,13 @@ Built to demonstrate **layered backend architecture**, **analytics pipeline desi
 
 ## Screenshots
 
-> _Add screenshots of the dashboard, empty state, and mobile view here._
+### Dashboard Overview
+
+![DevTrack dashboard overview](./frontend/public/assets/images/v1%20image.png)
+
+### Charts and Insights
+
+![DevTrack charts and insights](./frontend/public/assets/images/v2%20image.png)
 
 ---
 
@@ -70,39 +76,84 @@ DevTrack/
 
 Fetches and analyzes a GitHub user profile.
 
+Example request:
+
+```http
+GET /api/v1/github/esnoko
+```
+
 **Response:**
 ```json
 {
   "success": true,
   "data": {
-    "username": "torvalds",
-    "hireabilityScore": 82,
-    "scoreBreakdown": {
-      "commitConsistency": 36,
-      "repositoryQuality": 24,
-      "projectEngagement": 18,
-      "activityRecency": 4
-    },
+    "username": "esnoko",
     "repositorySummary": {
-      "totalRepositories": 6,
-      "totalStars": 198012,
-      "totalForks": 58234,
-      "mostStarredRepository": { "name": "linux", "url": "..." }
+      "totalRepositories": 7,
+      "totalStars": 5,
+      "totalForks": 0,
+      "totalOpenIssues": 0,
+      "mostStarredRepository": {
+        "name": "HexSoftwares_Exclusive-Music-player",
+        "stars": 2,
+        "url": "https://github.com/esnoko/HexSoftwares_Exclusive-Music-player"
+      }
+    },
+    "languageBreakdown": [
+      {
+        "language": "CSS",
+        "repositoryCount": 4,
+        "percentage": 57.14
+      },
+      {
+        "language": "JavaScript",
+        "repositoryCount": 1,
+        "percentage": 14.29
+      }
+    ],
+    "repoQualityIndicators": {
+      "repositoriesAnalyzed": 7,
+      "repositoriesWithDescription": 4,
+      "repositoriesWithLicense": 1,
+      "repositoriesWithTopics": 4,
+      "recentlyUpdatedRepositories": 5
     },
     "commitActivity": [
-      { "week": "Apr 7", "commits": 3 }
+      { "week": "2026-W09", "commits": 0 },
+      { "week": "2026-W10", "commits": 0 },
+      { "week": "2026-W11", "commits": 0 },
+      { "week": "2026-W12", "commits": 0 },
+      { "week": "2026-W13", "commits": 0 },
+      { "week": "2026-W14", "commits": 0 },
+      { "week": "2026-W15", "commits": 0 },
+      { "week": "2026-W16", "commits": 0 },
+      { "week": "2026-W17", "commits": 0 },
+      { "week": "2026-W18", "commits": 0 },
+      { "week": "2026-W19", "commits": 8 },
+      { "week": "2026-W20", "commits": 8 }
+    ],
+    "hireabilityScore": 30,
+    "scoreBreakdown": [
+      { "category": "Commit Consistency", "score": 7 },
+      { "category": "Repository Quality", "score": 14 },
+      { "category": "Project Engagement", "score": 6 },
+      { "category": "Activity Level", "score": 3 }
     ],
     "insights": {
-      "summary": "...",
-      "strengths": ["..."],
-      "weaknesses": ["..."],
-      "recommendation": "...",
-      "roleFit": { "frontend": 40, "backend": 72, "fullstack": 61 }
+      "summary": "Early to mid-stage profile; improving consistency and quality would help most.",
+      "strengths": [
+        "Has a baseline GitHub presence to build on."
+      ],
+      "weaknesses": [
+        "Commit history is inconsistent across recent weeks."
+      ],
+      "roleFit": { "frontend": 33, "backend": 28, "fullstack": 31 },
+      "recommendation": "Not ready for applications; focus on building consistent projects for frontend roles."
     }
   },
   "meta": {
-    "cached": false,
-    "timestamp": "2026-05-13T14:32:00.000Z"
+    "cached": true,
+    "timestamp": "2026-05-13T00:01:53.967Z"
   }
 }
 ```
