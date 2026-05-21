@@ -82,37 +82,90 @@ const buildInsights = (
   }
 
   const strengths = [];
-  if (consistencySignal >= 60) {
-    strengths.push('Maintains commits across many weeks, showing steady consistency.');
+  
+  if (consistencySignal >= 70) {
+    strengths.push('Exceptional consistency: commits across multiple weeks show strong discipline.');
+  } else if (consistencySignal >= 60) {
+    strengths.push('Solid commit consistency — regular contributions across weeks.');
   }
-  if (qualitySignal >= 60) {
-    strengths.push('Repositories show good maintenance quality (description/license/freshness).');
+  
+  if (qualitySignal >= 70) {
+    strengths.push('High-quality repositories: well-documented, licensed, and actively maintained.');
+  } else if (qualitySignal >= 60) {
+    strengths.push('Good repository maintenance: descriptions and licenses in place.');
   }
-  if (engagementSignal >= 60) {
-    strengths.push('Repository footprint and community engagement are promising.');
+  
+  if (engagementSignal >= 70) {
+    strengths.push('Strong community engagement: projects attracting stars and forks.');
+  } else if (engagementSignal >= 60) {
+    strengths.push('Solid project footprint with meaningful repository count and reach.');
   }
-  if (activitySignal >= 60) {
-    strengths.push('High recent commit volume indicates active development.');
+  
+  if (activitySignal >= 70) {
+    strengths.push('Prolific developer: high recent commit volume shows active development.');
+  } else if (activitySignal >= 60) {
+    strengths.push('Active contributor: meaningful commit activity in recent weeks.');
   }
+  
+  if (totalRepos >= 5 && hireabilityScore >= 50) {
+    strengths.push(`Diverse portfolio: ${totalRepos}+ public projects demonstrate range.`);
+  }
+  
+  if (licenseRatio >= 0.6 && analyzedRepos >= 2) {
+    strengths.push('Professional practice: most projects properly licensed.');
+  }
+  
+  // Ensure we have at least some strengths
   if (strengths.length === 0) {
     strengths.push('Has a baseline GitHub presence to build on.');
+  } else if (strengths.length > 3) {
+    // Keep top 3 strengths
+    strengths.splice(3);
   }
 
   const weaknesses = [];
+  
   if (totalRepos === 0) {
     weaknesses.push('No public repositories found yet.');
   }
+  
   if (consistencySignal < 40) {
-    weaknesses.push('Commit history is inconsistent across recent weeks.');
+    weaknesses.push('Commit history is inconsistent — long gaps suggest minimal recent activity.');
   }
+  
   if (qualitySignal < 40 && analyzedRepos > 0) {
-    weaknesses.push('Repository quality signals are weak (missing descriptions/licenses or stale repos).');
+    weaknesses.push('Repositories lack polish: missing descriptions, licenses, or are outdated.');
   }
+  
   if (activitySignal < 30) {
-    weaknesses.push('Recent commit volume is low.');
+    weaknesses.push('Recent commit volume is low — aim for steady weekly contributions.');
   }
+  
+  if (starsAndForks < 50 && totalRepos > 3) {
+    weaknesses.push('Limited community traction — projects lack stars/forks, suggest narrow scope.');
+  }
+  
+  if (descriptionRatio < 0.5 && analyzedRepos >= 3) {
+    weaknesses.push('Most repositories lack descriptions — add clear READMEs explaining purpose.');
+  }
+  
+  if (licenseRatio < 0.3 && analyzedRepos >= 3) {
+    weaknesses.push('Rarely licensing code — add MIT or Apache 2.0 to public projects.');
+  }
+  
+  if (updatedRatio < 0.4 && analyzedRepos >= 3) {
+    weaknesses.push('Projects appear stale — refresh recent work or clean up old prototypes.');
+  }
+  
+  if (totalRepos >= 2 && engagementSignal < 30) {
+    weaknesses.push('Collaboration is minimal — consider forking and contributing to community projects.');
+  }
+  
+  // Reduce to top 3 most relevant weaknesses
   if (weaknesses.length === 0) {
     weaknesses.push('No major weaknesses detected from available GitHub data.');
+  } else if (weaknesses.length > 3) {
+    weaknesses.splice(3);
   }
 
   return {
