@@ -8,7 +8,7 @@ const RepoSummaryCard = ({ repositorySummary, hireabilityScore }) => {
   const hireabilityTone = getScoreTone(hireabilityScore);
 
   return (
-    <section>
+    <section className="card h-full min-w-0">
       <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
         <div className="stat-item">
           <p className="stat-label">Repositories</p>

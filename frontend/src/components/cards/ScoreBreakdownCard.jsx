@@ -36,8 +36,8 @@ const ScoreBreakdownCard = ({ scoreBreakdown = [], hireabilityScore = 0 }) => {
   }
 
   return (
-    <section className="card">
-      <div className="flex items-start justify-between gap-4">
+    <section className="card h-full min-w-0">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between sm:gap-4">
         <div>
           <h2 className="text-base font-semibold tracking-tight text-primary">Score Breakdown</h2>
           <p className="mt-0.5 text-xs text-muted">How the hireability score is computed</p>
@@ -45,7 +45,7 @@ const ScoreBreakdownCard = ({ scoreBreakdown = [], hireabilityScore = 0 }) => {
 
         {/* Readiness badge */}
         <div
-          className="flex-shrink-0 rounded-lg border px-3 py-2 text-center"
+          className="w-fit flex-shrink-0 rounded-lg border px-3 py-2 text-center"
           style={{ borderColor: tone.border, backgroundColor: tone.background }}
         >
           <p className="text-xs font-semibold uppercase tracking-widest" style={{ color: tone.text }}>
