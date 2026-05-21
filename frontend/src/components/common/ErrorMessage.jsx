@@ -1,7 +1,13 @@
+const RATE_LIMIT_HINT =
+  'The server hit GitHub\'s API rate limit. Try again in a minute, or search a different username.';
+
 const ErrorMessage = ({ message }) => {
   if (!message) {
     return null;
   }
+
+  const isRateLimit = message.toLowerCase().includes('rate limit');
+  const displayMessage = isRateLimit ? RATE_LIMIT_HINT : message;
 
   return (
     <div
@@ -10,7 +16,7 @@ const ErrorMessage = ({ message }) => {
       role="alert"
     >
       <span style={{ fontSize: '1rem', lineHeight: 1.4 }}>&#9888;</span>
-      <p>{message}</p>
+      <p>{displayMessage}</p>
     </div>
   );
 };
