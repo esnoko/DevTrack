@@ -57,6 +57,12 @@ Full dashboard view: search, summary cards, score breakdown, charts, and insight
 
 Closer view of the analyzer: role fit, language distribution, tech stack detection, and strengths/weaknesses.
 
+### Score Breakdown Detail
+
+![DevTrack score breakdown detail](./frontend/public/assets/images/v3%20image.png)
+
+Shows the scoring logic more clearly: the weighted signals that make up the hireability score.
+
 ---
 
 ## ✨ Feature Breakdown
