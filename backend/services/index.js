@@ -10,7 +10,8 @@ const {
   buildRepositorySummary,
   buildLanguageBreakdown,
   buildCommitActivity,
-  buildRepoQualityIndicators
+  buildRepoQualityIndicators,
+  buildTechStack
 } = require('./builders');
 
 const { buildHireabilityScore } = require('./scoring/scoringService');
@@ -61,6 +62,7 @@ const analyzeGithubProfile = async (username) => {
       username,
       repositorySummary,
       languageBreakdown: buildLanguageBreakdown(repos),
+      techStack: buildTechStack(repos),
       repoQualityIndicators,
       commitActivity,
       hireabilityScore,
