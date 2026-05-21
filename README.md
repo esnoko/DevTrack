@@ -1,20 +1,41 @@
 # DevTrack
 
-> GitHub developer analytics platform — score, visualize, and interpret any GitHub profile in seconds.
+> **Profile → Insights.** Enter any GitHub username and get a comprehensive developer analytics report in seconds.
 
-**Live demo (frontend):** https://dev-track-lime.vercel.app/
+DevTrack generates a "developer readiness report" by analyzing public GitHub profiles. It surfaces **commit consistency**, **language expertise**, **project quality**, **contribution activity**, and **role-fit recommendations** — all in one dashboard.
 
-**Live API (backend):** https://devtrack-ejfe.onrender.com/api/v1/health
+Think: GitHub profile review tool for employers, career coaching, or self-assessment.
 
-**Status:** production-ready MVP
+**👉 Try it:** https://dev-track-lime.vercel.app/
 
 ---
 
-## Overview
+## 🎯 What DevTrack Analyzes
 
-DevTrack analyzes any public GitHub profile and surfaces a structured picture of a developer's activity, consistency, and project quality. Enter a username, get a full analytics report: hireability score, commit trends, role-fit breakdown, and actionable insights — all computed server-side.
+When you enter a GitHub username, the platform computes:
 
-Built to demonstrate **layered backend architecture**, **analytics pipeline design**, and **clean frontend data visualization** — not another CRUD app.
+| Metric | What it shows | Example insight |
+|---|---|---|
+| **Hireability Score** | 0–100 rating based on GitHub signals | "Ready for junior-level applications" |
+| **Commit Consistency** | Active weeks over 12-week ∆ | "Commits 6 out of 12 weeks" |
+| **Top Languages** | Pie chart of language distribution | "60% JavaScript, 30% Python" |
+| **Repository Quality** | Descriptions, licenses, freshness | "8/10 repos have descriptions" |
+| **Role Fit** | Frontend / Backend / Fullstack scores | "Backend-leaning (score: 68)" |
+| **Strengths & Weaknesses** | AI-generated actionable insights | ✔ Strong consistency / ✖ Limited collaborations |
+| **Activity Trends** | 12-week commit activity chart | "5–8 commits per active week" |
+
+---
+
+## 📊 Dashboard Preview
+
+The DevTrack dashboard displays:
+1. **Repository Summary** — Total repos, stars, forks, top project
+2. **Commit Activity Chart** — Week-over-week line graph (last 12 weeks)
+3. **Role Fit Comparison** — 3-bar chart: frontend vs backend vs fullstack
+4. **Top Languages Chart** — Pie / breakdown visualization
+5. **Developer Insights** — Text block with strengths, weaknesses, and recommendations
+
+All computed server-side. No client-side guessing.
 
 ---
 
@@ -30,15 +51,37 @@ Built to demonstrate **layered backend architecture**, **analytics pipeline desi
 
 ---
 
+## 💼 Why This Project Matters
+
+**For Employers & Interviewers:**
+- ✅ **API Integration**: Real consumption of GitHub's REST API (rate limiting, pagination, error handling)
+- ✅ **Data Pipeline**: Multi-stage transformation (fetch → parse → score → enhance → return)
+- ✅ **Scoring Algorithm**: Domain logic with weighted signals (replaces gut feeling with data)
+- ✅ **Full-Stack Ownership**: Backend scoring + frontend visualization (one person, all layers)
+- ✅ **Production Design**: Caching, error handling, structured response formats
+- ✅ **User Experience**: Clean UI that communicates complex data (not just raw dumps)
+
+**Real-world parallel:** This is how recruitment platforms, DevTools startups, and analytics dashboards work.
+
+---
+
 ## Tech Stack
 
-| Layer | Technology |
-|---|---|
-| Frontend | React 19, Vite 8, Tailwind CSS v4, Recharts |
-| Backend | Node.js 22, Express 4 |
-| API | GitHub REST API v3 (public, no auth required) |
-| Caching | In-memory TTL cache (server-side) |
-| Deployment | Frontend → Vercel · Backend → Render |
+| Layer | Technology | Why chosen |
+|---|---|---|
+| **Frontend** | React 19 + Vite 8 | Modern, fast, component-based UI |
+| **Styling** | Tailwind CSS v4 | Rapid, consistent design system |
+| **Charts** | Recharts | React-native, responsive, minimal setup |
+| **Backend** | Node.js 22 + Express 4 | JavaScript full-stack, async-first |
+| **External API** | GitHub REST API v3 | Public, no auth required, comprehensive |
+| **Caching** | In-memory TTL | Fast repeat queries without hitting GitHub limits |
+| **Deployment** | Vercel (frontend) + Render (backend) | Frictionless, fast cold starts, free tier |
+
+**Status:** Production-ready MVP
+
+**Live endpoints:**
+- Frontend: https://dev-track-lime.vercel.app/
+- Backend health: https://devtrack-ejfe.onrender.com/api/v1/health
 
 ---
 
@@ -166,6 +209,26 @@ Score thresholds:
 
 ---
 
+## 🗺️ Roadmap
+
+**Completed:**
+- ✅ GitHub REST API integration + error handling
+- ✅ Scoring pipeline (4-signal hireability formula)
+- ✅ Role-fit analysis (frontend/backend/fullstack)
+- ✅ Insights generation (strengths/weaknesses)
+- ✅ React dashboard with 4 chart types
+- ✅ Server-side caching (60s TTL)
+- ✅ Production deployment on Vercel + Render
+
+**Next priorities:**
+- 🔄 **Authentication** (GitHub OAuth or JWT)
+- 🔄 **History tracking** (store profiles over time, see growth trends)
+- 🔄 **Contribution heatmap** (like GitHub's calendar, but better analysis)
+- 🔄 **Batch reports** (analyze multiple users, export to PDF)
+- 🔄 **Email alerts** (notify when watched profiles level up)
+
+---
+
 ## Local Setup
 
 ### Prerequisites
@@ -243,10 +306,19 @@ Quick ship order:
 
 ## CV-Ready Highlights
 
-- Built a full-stack GitHub analytics platform for profile evaluation
-- Designed modular Node.js service architecture for scoring and insights
-- Implemented deterministic hireability scoring and recommendation logic
-- Developed a React + Recharts dashboard for analytics visualization
+**What this project signals to employers:**
+
+1. **API Integration** — Fetches 1000s of events from GitHub, handles rate limits, retries, and edge cases
+2. **Data Transformation** — Builds domain objects from raw API responses (builders layer)
+3. **Scoring Algorithm** — Implements weighted multi-signal hireability formula (not magic, all documented)
+4. **Full-Stack Ownership** — Backend scoring + React frontend (not "I just styled someone else's backend")
+5. **Production Design** — Caching, error handling, structured responses, environment-based config
+6. **Thoughtful UX** — Complex data (commit trends, role fit) translated into clear visualizations
+7. **DevOps Basics** — Deployed to Vercel + Render, passes the "does it actually work in public?" test
+
+**Real-world relevance:** This mirrors the architecture of recruitment platforms (Levels.fyi, AlgoExpert), DevTools SaaS (Segment, Mixpanel), and career coaching apps (levels-fyi, gittrack).
+
+---
 
 ---
 
