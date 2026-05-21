@@ -4,6 +4,7 @@ import ErrorMessage from '../components/common/ErrorMessage';
 import HeaderCard from '../components/cards/HeaderCard';
 import RepoSummaryCard from '../components/cards/RepoSummaryCard';
 import InsightsCard from '../components/cards/InsightsCard';
+import TechStackCard from '../components/cards/TechStackCard';
 import CommitChart from '../components/charts/CommitChart';
 import RoleFitChart from '../components/charts/RoleFitChart';
 import LanguageChart from '../components/charts/LanguageChart';
@@ -86,7 +87,8 @@ const Dashboard = () => {
               <LanguageChart languageBreakdown={profile.languageBreakdown || []} />
             </div>
 
-            <div className="mt-5">
+            <div className="mt-5 grid grid-cols-1 gap-5 lg:grid-cols-2">
+              <TechStackCard techStack={profile.techStack || []} />
               <InsightsCard insights={profile.insights} />
             </div>
           </div>
