@@ -43,13 +43,49 @@ All computed server-side. No client-side guessing.
 
 ## Screenshots
 
+Current screenshots show the live dashboard layout, analyzer cards, and the scoring + insight experience.
+
 ### Dashboard Overview
 
 ![DevTrack dashboard overview](./frontend/public/assets/images/v1%20image.png)
 
+Full dashboard view: search, summary cards, score breakdown, charts, and insight engine.
+
 ### Charts and Insights
 
 ![DevTrack charts and insights](./frontend/public/assets/images/v2%20image.png)
+
+Closer view of the analyzer: role fit, language distribution, tech stack detection, and strengths/weaknesses.
+
+---
+
+## ✨ Feature Breakdown
+
+### 1) Search + Analysis Pipeline
+Enter any public GitHub username and DevTrack generates a full analytics profile in one request.
+
+### 2) Score Breakdown (0-100)
+The hireability score is computed from weighted signals, then displayed with a clear category-level breakdown:
+- Commit consistency (40)
+- Repository quality (30)
+- Project engagement (20)
+- Activity level (10)
+
+### 3) Visual Intelligence Layer
+The dashboard translates raw GitHub data into readable charts and cards:
+- Commit activity trend
+- Role fit comparison (frontend/backend/fullstack)
+- Top language distribution (pie chart + stable custom legend)
+- Tech stack specialization with expertise tiers
+
+### 4) Insight Engine
+DevTrack turns metrics into interpretation:
+- strengths
+- weaknesses
+- recommendation
+
+### 5) Performance + Reliability
+Server-side caching and robust error handling keep response times stable and protect against API pressure.
 
 ---
 
@@ -115,7 +151,32 @@ DevTrack/
         └── utils/            # scoreTone.js (threshold color logic)
 ```
 
+### Simple Architecture Diagram
+
+```mermaid
+flowchart LR
+  A[User enters GitHub username] --> B[Frontend Dashboard - React/Vite]
+  B --> C[Backend API - Express]
+  C --> D{Cache hit?}
+  D -- Yes --> H[Return cached analysis]
+  D -- No --> E[GitHub REST API]
+  E --> F[Builders + Scoring + Insights services]
+  F --> G[Structured analytics response]
+  G --> B
+  H --> B
+```
+
 **Design principle:** the backend is the analytics engine. The frontend is a display platform. Zero business logic lives in React components.
+
+---
+
+## 🚀 What Makes DevTrack Different
+
+1. It does not stop at raw GitHub stats; it computes explainable scoring and role-fit interpretation.
+2. It combines quantitative metrics and qualitative insights in a single view.
+3. It detects technology specialization (framework-level) rather than showing only language percentages.
+4. It is built as a layered analytics system (builders, scoring, insights) instead of a simple data fetch UI.
+5. It is production-deployed and interview-ready with real API limits, caching, and failure handling.
 
 ---
 
