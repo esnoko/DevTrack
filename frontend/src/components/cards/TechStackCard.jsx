@@ -1,5 +1,4 @@
 import { useMemo } from 'react';
-import { getScoreTone } from '../../utils/scoreTone';
 
 const EXPERTISE_COLORS = {
   'Expert': { bg: '#065f46', text: '#ecfdf5', border: '#059669' },
@@ -8,11 +7,32 @@ const EXPERTISE_COLORS = {
   'Beginner': { bg: '#6366f1', text: '#eef2ff', border: '#818cf8' }
 };
 
-const TechStackCard = ({ techStack = [] }) => {
+// Derive a basic tech stack from language breakdown when server doesn't provide one
+const deriveFromLanguages = (languageBreakdown = []) => {
+  return languageBreakdown.map(({ language, repositoryCount, percentage }) => {
+    let expertise = 'Beginner';
+    if (percentage >= 40) expertise = 'Expert';
+    else if (percentage >= 20) expertise = 'Proficient';
+    else if (percentage >= 10) expertise = 'Experienced';
+    return {
+      tech: language,
+      category: 'Languages',
+      count: repositoryCount,
+      percentage,
+      expertise,
+      repos: []
+    };
+  });
+};
+
+const TechStackCard = ({ techStack = [], languageBreakdown = [] }) => {
+  // Fall back to deriving from language breakdown if techStack is empty
+  const resolvedStack = techStack.length > 0 ? techStack : deriveFromLanguages(languageBreakdown);
+
   // Group tech by category for easier visualization
   const techByCategory = useMemo(() => {
     const grouped = {};
-    techStack.forEach((tech) => {
+    resolvedStack.forEach((tech) => {
       const cat = tech.category || 'Other';
       if (!grouped[cat]) {
         grouped[cat] = [];
@@ -20,21 +40,21 @@ const TechStackCard = ({ techStack = [] }) => {
       grouped[cat].push(tech);
     });
     return grouped;
-  }, [techStack]);
+  }, [resolvedStack]);
 
-  if (!techStack || techStack.length === 0) {
+  if (resolvedStack.length === 0) {
     return (
       <section className="card">
         <h2 className="text-base font-semibold tracking-tight text-primary">Tech Stack</h2>
         <p className="mt-2 text-sm text-muted">
-          No framework signals detected. This profile may use languages without matching repo names or descriptions.
+          No technology data available for this profile.
         </p>
       </section>
     );
   }
 
   // Get top 3 tech for headline
-  const topTechs = techStack.slice(0, 3);
+  const topTechs = resolvedStack.slice(0, 3);
   const topHeadline = topTechs.map((t) => t.tech).join(' • ');
 
   return (
@@ -105,7 +125,7 @@ const TechStackCard = ({ techStack = [] }) => {
       {/* Total tech count */}
       <div className="mt-4 border-t border-gray-200 pt-3 text-center">
         <p className="text-xs text-muted">
-          <span className="font-semibold text-primary">{techStack.length}</span> technologies detected
+          <span className="font-semibold text-primary">{resolvedStack.length}</span> technologies detected
         </p>
       </div>
     </section>

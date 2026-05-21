@@ -88,7 +88,7 @@ const Dashboard = () => {
             </div>
 
             <div className="mt-5 grid grid-cols-1 gap-5 lg:grid-cols-2">
-              <TechStackCard techStack={profile.techStack || []} />
+              <TechStackCard techStack={profile.techStack || []} languageBreakdown={profile.languageBreakdown || []} />
               <InsightsCard insights={profile.insights} />
             </div>
           </div>
