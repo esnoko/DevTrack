@@ -1,9 +1,9 @@
 @import 'tailwindcss';
 
 @theme {
-  --color-page: #f7f8fa;
+  --color-page: #eef2f7;
   --color-surface: #ffffff;
-  --color-line: #e4e7ec;
+  --color-line: #dbe2ea;
   --color-primary: #111827;
   --color-muted: #6b7280;
   --color-accent: #0070f3;
@@ -36,7 +36,7 @@
 @layer components {
   .app-shell {
     min-height: 100vh;
-    background-color: var(--color-page);
+    background: linear-gradient(180deg, #f6f8fc 0%, var(--color-page) 100%);
   }
 
   /* ── Top navigation bar ── */
@@ -94,6 +94,7 @@
     border-radius: 0.75rem;
     background-color: var(--color-surface);
     padding: 1.5rem;
+    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.05);
   }
 
   /* ── Stat items inside RepoSummaryCard ── */
@@ -101,7 +102,7 @@
     padding: 1rem 1.25rem;
     border: 1px solid var(--color-line);
     border-radius: 0.625rem;
-    background-color: var(--color-surface);
+    background-color: #fbfdff;
   }
 
   .stat-label {
@@ -135,7 +136,7 @@
     padding: 0.3125rem 0.75rem;
     border-radius: 0.375rem;
     font-size: 0.8125rem;
-    background-color: var(--color-page);
+    background-color: #f8fafc;
     border: 1px solid var(--color-line);
     color: var(--color-primary);
     line-height: 1.4;
