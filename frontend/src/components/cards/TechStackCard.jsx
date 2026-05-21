@@ -26,7 +26,9 @@ const TechStackCard = ({ techStack = [] }) => {
     return (
       <section className="card">
         <h2 className="text-base font-semibold tracking-tight text-primary">Tech Stack</h2>
-        <p className="mt-4 text-sm text-muted">No technology data available.</p>
+        <p className="mt-2 text-sm text-muted">
+          No framework signals detected. This profile may use languages without matching repo names or descriptions.
+        </p>
       </section>
     );
   }

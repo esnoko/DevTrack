@@ -169,18 +169,21 @@ const buildTechStack = (repos) => {
 
   // Analyze language and repository names
   repos.forEach((repo) => {
-    // Check repo language
+    // Check repo language (GitHub returns proper-cased, e.g. "JavaScript", "Python")
     if (repo.language) {
-      const lang = repo.language.toLowerCase();
-      updateTech(lang, repo, techFrequency, techRepos);
+      // Preserve the original casing for display, but use as-is for categorization
+      updateTech(repo.language, repo, techFrequency, techRepos);
     }
 
     // Check repo name and description for framework hints
-    const text = `${repo.name} ${repo.description || ''}`.toLowerCase();
+    const text = `${repo.name || ''} ${repo.description || ''}`.toLowerCase();
     Object.entries(FRAMEWORK_PATTERNS).forEach(([framework, { keywords }]) => {
       const matches = keywords.some((kw) => text.includes(kw.toLowerCase()));
       if (matches) {
-        updateTech(framework, repo, techFrequency, techRepos);
+        // Only add framework if it's not already the repo language to avoid double-counting
+        if (framework !== repo.language) {
+          updateTech(framework, repo, techFrequency, techRepos);
+        }
       }
     });
   });
@@ -221,39 +224,45 @@ const updateTech = (tech, repo, techFrequency, techRepos) => {
   techFrequency[tech] += 1;
   techRepos[tech].push({
     name: repo.name,
-    url: repo.url
+    url: repo.html_url || repo.url || ''
   });
 };
 
 const categorizeByLanguage = (lang) => {
   const langLower = lang.toLowerCase();
 
-  if (['javascript', 'typescript', 'nodejs', 'node.js'].includes(langLower)) {
-    return 'Backend/Frontend';
+  if (['javascript', 'typescript'].includes(langLower)) {
+    return 'Languages';
   }
-  if (['python', 'py'].includes(langLower)) {
-    return 'Backend/Data';
+  if (['python'].includes(langLower)) {
+    return 'Languages';
   }
   if (['java', 'kotlin', 'scala'].includes(langLower)) {
-    return 'Backend';
+    return 'Languages';
   }
   if (['go', 'golang', 'rust'].includes(langLower)) {
-    return 'Systems';
+    return 'Languages';
   }
-  if (['c++', 'c#', 'csharp'].includes(langLower)) {
-    return 'Backend';
+  if (['c++', 'c#', 'c', 'csharp'].includes(langLower)) {
+    return 'Languages';
   }
-  if (['ruby', 'rb'].includes(langLower)) {
-    return 'Backend';
+  if (['ruby'].includes(langLower)) {
+    return 'Languages';
   }
   if (['php'].includes(langLower)) {
-    return 'Backend';
+    return 'Languages';
   }
   if (['html', 'css', 'scss', 'sass'].includes(langLower)) {
-    return 'Frontend';
+    return 'Languages';
+  }
+  if (['swift', 'objective-c', 'dart'].includes(langLower)) {
+    return 'Languages';
+  }
+  if (['shell', 'powershell', 'bash'].includes(langLower)) {
+    return 'Languages';
   }
 
-  return 'Other';
+  return 'Languages';
 };
 
 /**
