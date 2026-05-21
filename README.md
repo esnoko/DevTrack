@@ -51,13 +51,13 @@ Current screenshots show the live dashboard layout, analyzer cards, and the scor
 
 Full dashboard view: search, summary cards, score breakdown, charts, and insight engine.
 
-### Charts and Insights
+### Charts, Commit Activity and Role Fit
 
 ![DevTrack charts and insights](./frontend/public/assets/images/v2%20image.png)
 
 Closer view of the analyzer: role fit, language distribution, tech stack detection, and strengths/weaknesses.
 
-### Score Breakdown Detail
+### Tech Stack and Insights
 
 ![DevTrack score breakdown detail](./frontend/public/assets/images/v3%20image.png)
 
