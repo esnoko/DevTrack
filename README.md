@@ -19,6 +19,7 @@ When you enter a GitHub username, the platform computes:
 | **Hireability Score** | 0–100 rating based on GitHub signals | "Ready for junior-level applications" |
 | **Commit Consistency** | Active weeks over 12-week ∆ | "Commits 6 out of 12 weeks" |
 | **Top Languages** | Pie chart of language distribution | "60% JavaScript, 30% Python" |
+| **Tech Stack Specializations** | Frameworks & tools detected from repos | "Expert: React, Proficient: Node.js, Experienced: AWS" |
 | **Repository Quality** | Descriptions, licenses, freshness | "8/10 repos have descriptions" |
 | **Role Fit** | Frontend / Backend / Fullstack scores | "Backend-leaning (score: 68)" |
 | **Strengths & Weaknesses** | AI-generated actionable insights | ✔ Strong consistency / ✖ Limited collaborations |
@@ -32,8 +33,9 @@ The DevTrack dashboard displays:
 1. **Repository Summary** — Total repos, stars, forks, top project
 2. **Commit Activity Chart** — Week-over-week line graph (last 12 weeks)
 3. **Role Fit Comparison** — 3-bar chart: frontend vs backend vs fullstack
-4. **Top Languages Chart** — Pie / breakdown visualization
-5. **Developer Insights** — Text block with strengths, weaknesses, and recommendations
+4. **Top Languages Chart** — Pie breakdown of language distribution
+5. **Tech Stack Card** — Framework & framework expertise levels (React, Django, etc.)
+6. **Developer Insights** — Text-based strengths, weaknesses, and personalized recommendations
 
 All computed server-side. No client-side guessing.
 
@@ -311,10 +313,17 @@ Quick ship order:
 1. **API Integration** — Fetches 1000s of events from GitHub, handles rate limits, retries, and edge cases
 2. **Data Transformation** — Builds domain objects from raw API responses (builders layer)
 3. **Scoring Algorithm** — Implements weighted multi-signal hireability formula (not magic, all documented)
-4. **Full-Stack Ownership** — Backend scoring + React frontend (not "I just styled someone else's backend")
-5. **Production Design** — Caching, error handling, structured responses, environment-based config
-6. **Thoughtful UX** — Complex data (commit trends, role fit) translated into clear visualizations
-7. **DevOps Basics** — Deployed to Vercel + Render, passes the "does it actually work in public?" test
+4. **Pattern Detection** — Framework & specialization recognition from repository names, descriptions, and language choices
+5. **Full-Stack Ownership** — Backend scoring + React frontend (not "I just styled someone else's backend")
+6. **Production Design** — Caching, error handling, structured responses, environment-based config
+7. **Thoughtful UX** — Complex data (commit trends, role fit, tech stack) translated into clear visualizations
+8. **DevOps Basics** — Deployed to Vercel + Render, passes the "does it actually work in public?" test
+
+**Why Tech Stack Profiling Matters:**
+- Most developers just see "languages" on their profile
+- DevTrack goes deeper: detects **expertise levels** (Expert / Proficient / Experienced / Beginner)
+- Recognizes **frameworks** (React, Django, FastAPI, Kubernetes, etc.) — the actual specialization
+- Organizes by role **categories** (Frontend, Backend, DevOps, ML/Data) — tells the real story
 
 **Real-world relevance:** This mirrors the architecture of recruitment platforms (Levels.fyi, AlgoExpert), DevTools SaaS (Segment, Mixpanel), and career coaching apps (levels-fyi, gittrack).
 
