@@ -95,14 +95,6 @@ The UI is organized into focused cards and charts:
 ### Dashboard Overview
 
 ![DevTrack dashboard overview](./frontend/public/assets/images/v1%20image.png)
-
-<<<<<<< HEAD
-### Charts and Insights
-
-![DevTrack charts and insights](./frontend/public/assets/images/v2%20image.png)
-
-### Score Breakdown Detail
-=======
 Full dashboard view: search, summary cards, score breakdown, charts, and insight engine.
 
 ### Charts, Commit Activity and Role Fit
@@ -111,8 +103,7 @@ Full dashboard view: search, summary cards, score breakdown, charts, and insight
 
 Closer view of the analyzer: role fit, language distribution, tech stack detection, and strengths/weaknesses.
 
-### Tech Stack and Insights
->>>>>>> 1b6874f0f5c84bd94ea47f4ffedc51afd0456186
+### Score Breakdown Detail
 
 ![DevTrack score breakdown detail](./frontend/public/assets/images/v3%20image.png)
 
