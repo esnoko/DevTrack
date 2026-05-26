@@ -125,6 +125,17 @@
     text-decoration: none;
   }
 
+  .footer-label {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--color-muted);
+  }
+
+  .footer-placeholder {
+    font-size: 0.8125rem;
+    color: var(--color-muted);
+  }
+
   .footer-links a:hover {
     text-decoration: underline;
     text-underline-offset: 2px;
