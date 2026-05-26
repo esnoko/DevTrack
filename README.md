@@ -1,10 +1,56 @@
 # DevTrack
 
-DevTrack is a full-stack developer analytics system that converts public GitHub activity into a structured, explainable profile.
+DevTrack helps developers track skills, GitHub activity, and growth progress in one place.
 
 It is designed to answer one practical question: based on public code history, what does this developer look like in terms of consistency, project quality, role fit, and readiness?
 
 Live app: https://dev-track-lime.vercel.app/
+
+## Problem
+
+GitHub profiles expose a lot of raw information, but they do not provide clear interpretation.
+
+- Activity is noisy and hard to evaluate quickly
+- Skill signals are fragmented across repositories
+- Recruiters and developers often rely on gut feeling instead of consistent metrics
+
+## Solution
+
+DevTrack converts public GitHub data into a structured, explainable analytics report.
+
+- deterministic hireability scoring
+- role-fit estimation (frontend, backend, fullstack)
+- repository quality and consistency signals
+- strengths, weaknesses, and practical recommendations
+
+## Why I Built This
+
+I wanted to build something beyond a portfolio dashboard: a small analytics product with clear boundaries across data ingestion, intelligence, and presentation.
+
+## How It Works
+
+1. A user submits a GitHub username
+2. The backend fetches profile, repo, and activity data from GitHub
+3. Builders normalize raw data into domain objects
+4. Scoring and insights services compute explainable analytics
+5. The frontend renders charts, cards, and recommendations
+
+## Screenshots
+
+### Dashboard Overview
+
+![DevTrack dashboard overview](./frontend/public/assets/images/v1%20image.png)
+Full dashboard view: search, summary cards, score breakdown, charts, and insight engine.
+
+### Charts, Commit Activity and Role Fit
+
+![DevTrack charts and insights](./frontend/public/assets/images/v2%20image.png)
+
+Closer view of the analyzer: role fit, language distribution, tech stack detection, and strengths/weaknesses.
+
+### Score Breakdown Detail
+
+![DevTrack score breakdown detail](./frontend/public/assets/images/v3%20image.png)
 
 ## Product Summary
 
@@ -17,6 +63,30 @@ DevTrack takes a GitHub username and returns:
 - strengths, weaknesses, and recommendations
 
 This is deterministic analytics, not prompt-based AI output.
+
+## Architecture Overview
+
+### Frontend
+
+- React 19
+- Tailwind CSS 4
+- Recharts for visual analytics
+
+### Backend
+
+- Node.js
+- Express 4
+- Service-layer modules for builders, scoring, insights, and cache
+
+### Database
+
+- No persistent database in the current MVP
+- In-memory TTL caching for repeat requests
+- MongoDB is a planned upgrade for historical profile tracking
+
+### Integrations
+
+- GitHub REST API for profile, repositories, and activity data
 
 ## Why This Project Matters
 
@@ -39,7 +109,7 @@ It is not a UI wrapper around GitHub stats. It is a service-layer analytics syst
 | Language and stack profiling | Identifies dominant languages and specialization clues | Helps classify practical technical orientation |
 | Insight generation | Produces strengths, weaknesses, recommendations | Adds interpretable context for human decisions |
 
-## Architecture
+## Architecture (Code Structure)
 
 ```text
 DevTrack/
@@ -89,23 +159,6 @@ The UI is organized into focused cards and charts:
 4. Language distribution (pie chart)
 5. Tech stack/specialization card
 6. Insights card (strengths, weaknesses, recommendations)
-
-## Screenshots
-
-### Dashboard Overview
-
-![DevTrack dashboard overview](./frontend/public/assets/images/v1%20image.png)
-Full dashboard view: search, summary cards, score breakdown, charts, and insight engine.
-
-### Charts, Commit Activity and Role Fit
-
-![DevTrack charts and insights](./frontend/public/assets/images/v2%20image.png)
-
-Closer view of the analyzer: role fit, language distribution, tech stack detection, and strengths/weaknesses.
-
-### Score Breakdown Detail
-
-![DevTrack score breakdown detail](./frontend/public/assets/images/v3%20image.png)
 
 ## API Contract
 
@@ -183,6 +236,14 @@ These constraints are explicit design choices for reliability in a public-data M
 2. Historical snapshots to track profile change over time
 3. Deeper commit-level enrichment where API coverage allows
 4. Team or batch analysis workflows for recruiter use cases
+
+## What I Learned
+
+1. API integration challenges are mostly about edge cases, not happy paths (rate limits, partial data, and fallback behavior).
+2. Clean service boundaries make scoring logic safer to evolve without breaking API contracts.
+3. Frontend state is easier to manage when all analytics are computed server-side and returned in one structured payload.
+4. Deployment reliability depends on explicit environment configuration and health checks, not just local success.
+5. Explainable deterministic logic builds more trust for decision-support products than opaque scoring.
 
 ## Tech Stack
 
