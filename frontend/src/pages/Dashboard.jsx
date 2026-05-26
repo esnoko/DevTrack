@@ -1,6 +1,7 @@
 import SearchBar from '../components/common/SearchBar';
 import Loader from '../components/common/Loader';
 import ErrorMessage from '../components/common/ErrorMessage';
+import Footer from '../components/layout/Footer';
 import HeaderCard from '../components/cards/HeaderCard';
 import RepoSummaryCard from '../components/cards/RepoSummaryCard';
 import InsightsCard from '../components/cards/InsightsCard';
@@ -101,6 +102,8 @@ const Dashboard = () => {
           </div>
         )}
       </div>
+
+      <Footer />
     </div>
   );
 };
