@@ -35,6 +35,8 @@
 
 @layer components {
   .app-shell {
+    display: flex;
+    flex-direction: column;
     min-height: 100vh;
     background: linear-gradient(180deg, #f6f8fc 0%, var(--color-page) 100%);
   }
@@ -75,6 +77,7 @@
 
   /* ── Main content area ── */
   .page-content {
+    flex: 1;
     max-width: 72rem;
     margin: 0 auto;
     padding: 1.5rem 1rem 4rem;
