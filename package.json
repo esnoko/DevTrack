@@ -8,5 +8,8 @@
     "dev": "npm --prefix backend run dev",
     "start:backend": "npm --prefix backend start",
     "dev:backend": "npm --prefix backend run dev"
+  },
+  "devDependencies": {
+    "concurrently": "^10.0.3"
   }
 }
