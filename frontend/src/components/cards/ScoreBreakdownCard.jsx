@@ -1,4 +1,5 @@
 import { getScoreTone } from '../../utils/scoreTone';
+import { motion } from 'framer-motion';
 
 // Each signal's max possible score (weights that sum to 100)
 const SIGNAL_MAX = {
@@ -36,7 +37,13 @@ const ScoreBreakdownCard = ({ scoreBreakdown = [], hireabilityScore = 0 }) => {
   }
 
   return (
-    <section className="card h-full min-w-0">
+    <motion.section
+      className="card h-full min-w-0"
+      initial={{ opacity: 0, y: 14 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.42, ease: [0.22, 1, 0.36, 1] }}
+      whileHover={{ y: -2 }}
+    >
       <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between sm:gap-4">
         <div>
           <h2 className="text-base font-semibold tracking-tight text-primary">Score Breakdown</h2>
@@ -60,14 +67,19 @@ const ScoreBreakdownCard = ({ scoreBreakdown = [], hireabilityScore = 0 }) => {
 
       {/* Signal bars */}
       <div className="mt-5 space-y-4">
-        {scoreBreakdown.map(({ category, score }) => {
+        {scoreBreakdown.map(({ category, score }, index) => {
           const max = SIGNAL_MAX[category] ?? 100;
           const pct = max === 0 ? 0 : Math.round((score / max) * 100);
           const barTone = getScoreTone(pct);
           const description = SIGNAL_DESCRIPTION[category] ?? '';
 
           return (
-            <div key={category}>
+            <motion.div
+              key={category}
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1 + index * 0.06, duration: 0.28 }}
+            >
               <div className="flex items-center justify-between gap-2">
                 <div className="min-w-0">
                   <p className="truncate text-sm font-medium text-primary">{category}</p>
@@ -83,10 +95,12 @@ const ScoreBreakdownCard = ({ scoreBreakdown = [], hireabilityScore = 0 }) => {
 
               {/* Progress bar track */}
               <div className="mt-1.5 h-2 w-full overflow-hidden rounded-full bg-gray-100">
-                <div
+                <motion.div
                   className="h-full rounded-full transition-all duration-500"
+                  initial={{ width: 0 }}
+                  animate={{ width: `${pct}%` }}
+                  transition={{ delay: 0.16 + index * 0.06, duration: 0.52, ease: [0.22, 1, 0.36, 1] }}
                   style={{
-                    width: `${pct}%`,
                     backgroundColor: barTone.text
                   }}
                 />
@@ -96,7 +110,7 @@ const ScoreBreakdownCard = ({ scoreBreakdown = [], hireabilityScore = 0 }) => {
               <p className="mt-0.5 text-right text-xs text-muted opacity-60">
                 weight: {max}%
               </p>
-            </div>
+            </motion.div>
           );
         })}
       </div>
@@ -109,7 +123,7 @@ const ScoreBreakdownCard = ({ scoreBreakdown = [], hireabilityScore = 0 }) => {
         <p className="font-semibold" style={{ color: tone.text }}>{readinessLabel}</p>
         <p className="mt-0.5 text-xs" style={{ color: tone.text, opacity: 0.85 }}>{readinessDetail}</p>
       </div>
-    </section>
+    </motion.section>
   );
 };
 
