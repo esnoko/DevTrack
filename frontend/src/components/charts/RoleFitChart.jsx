@@ -8,6 +8,7 @@ import {
   XAxis,
   YAxis
 } from 'recharts';
+import { motion } from 'framer-motion';
 import { getScoreTone } from '../../utils/scoreTone';
 
 const mapRoleFitToChartData = (roleFit = {}) => {
@@ -22,7 +23,13 @@ const RoleFitChart = ({ roleFit }) => {
   const chartData = mapRoleFitToChartData(roleFit);
 
   return (
-    <section className="card overflow-hidden min-w-0">
+    <motion.section
+      className="card overflow-hidden min-w-0"
+      initial={{ opacity: 0, y: 14 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.42, ease: [0.22, 1, 0.36, 1] }}
+      whileHover={{ y: -2 }}
+    >
       <h2 className="text-base font-semibold tracking-tight text-primary">Role Fit</h2>
       <p className="mt-0.5 text-xs text-muted">Computed by backend &mdash; scores out of 100</p>
 
@@ -36,7 +43,14 @@ const RoleFitChart = ({ roleFit }) => {
               contentStyle={{ border: '1px solid #e4e7ec', borderRadius: '0.5rem', fontSize: '0.8125rem' }}
               cursor={{ fill: 'rgba(0,0,0,0.04)' }}
             />
-            <Bar dataKey="score" radius={[5, 5, 0, 0]} maxBarSize={56}>
+            <Bar
+              dataKey="score"
+              radius={[5, 5, 0, 0]}
+              maxBarSize={56}
+              isAnimationActive
+              animationDuration={900}
+              animationEasing="ease-out"
+            >
               {chartData.map((entry) => (
                 <Cell key={entry.role} fill={getScoreTone(entry.score).text} />
               ))}
@@ -44,7 +58,7 @@ const RoleFitChart = ({ roleFit }) => {
           </BarChart>
         </ResponsiveContainer>
       </div>
-    </section>
+    </motion.section>
   );
 };
 
