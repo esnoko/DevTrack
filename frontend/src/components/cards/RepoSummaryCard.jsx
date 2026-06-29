@@ -1,4 +1,5 @@
 import { getScoreTone } from '../../utils/scoreTone';
+import { motion } from 'framer-motion';
 
 const RepoSummaryCard = ({ repositorySummary, hireabilityScore }) => {
   if (!repositorySummary) {
@@ -8,33 +9,42 @@ const RepoSummaryCard = ({ repositorySummary, hireabilityScore }) => {
   const hireabilityTone = getScoreTone(hireabilityScore);
 
   return (
-    <section className="card h-full min-w-0">
+    <motion.section
+      className="card h-full min-w-0"
+      initial={{ opacity: 0, y: 14 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.42, ease: [0.22, 1, 0.36, 1] }}
+      whileHover={{ y: -2 }}
+    >
       <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
-        <div className="stat-item">
+        <motion.div className="stat-item" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.08, duration: 0.25 }}>
           <p className="stat-label">Repositories</p>
           <p className="stat-value">{repositorySummary.totalRepositories}</p>
-        </div>
+        </motion.div>
 
-        <div className="stat-item">
+        <motion.div className="stat-item" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.12, duration: 0.25 }}>
           <p className="stat-label">Stars</p>
           <p className="stat-value">{repositorySummary.totalStars}</p>
-        </div>
+        </motion.div>
 
-        <div className="stat-item">
+        <motion.div className="stat-item" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.16, duration: 0.25 }}>
           <p className="stat-label">Forks</p>
           <p className="stat-value">{repositorySummary.totalForks}</p>
-        </div>
+        </motion.div>
 
-        <div
+        <motion.div
           className="stat-item"
           style={{ borderColor: hireabilityTone.border, backgroundColor: hireabilityTone.background }}
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2, duration: 0.25 }}
         >
           <p className="stat-label" style={{ color: hireabilityTone.text }}>Hireability</p>
           <p className="stat-value" style={{ color: hireabilityTone.text }}>
             {hireabilityScore}
             <span className="text-base font-medium" style={{ color: hireabilityTone.text, opacity: 0.7 }}>/100</span>
           </p>
-        </div>
+        </motion.div>
       </div>
 
       {repositorySummary.mostStarredRepository && (
@@ -54,7 +64,7 @@ const RepoSummaryCard = ({ repositorySummary, hireabilityScore }) => {
           </a>
         </div>
       )}
-    </section>
+    </motion.section>
   );
 };
 
