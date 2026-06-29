@@ -1,10 +1,18 @@
+import { motion } from 'framer-motion';
+
 const InsightsCard = ({ insights }) => {
   if (!insights) {
     return null;
   }
 
   return (
-    <section className="card">
+    <motion.section
+      className="card"
+      initial={{ opacity: 0, y: 14 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.42, ease: [0.22, 1, 0.36, 1] }}
+      whileHover={{ y: -2 }}
+    >
       <h2 className="text-base font-semibold tracking-tight text-primary">Insights</h2>
       <p className="mt-1.5 text-sm leading-relaxed text-muted">{insights.summary}</p>
 
@@ -14,11 +22,17 @@ const InsightsCard = ({ insights }) => {
             Strengths
           </h3>
           <div className="flex flex-col gap-2">
-            {(insights.strengths || []).map((item) => (
-              <div key={item} className="insight-tag insight-tag-success">
+            {(insights.strengths || []).map((item, index) => (
+              <motion.div
+                key={item}
+                className="insight-tag insight-tag-success"
+                initial={{ opacity: 0, x: -8 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.12 + index * 0.05, duration: 0.25 }}
+              >
                 <span style={{ color: 'var(--color-success)', fontSize: '0.6rem' }}>&#9679;</span>
                 {item}
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
@@ -28,11 +42,17 @@ const InsightsCard = ({ insights }) => {
             Areas to Improve
           </h3>
           <div className="flex flex-col gap-2">
-            {(insights.weaknesses || []).map((item) => (
-              <div key={item} className="insight-tag insight-tag-danger">
+            {(insights.weaknesses || []).map((item, index) => (
+              <motion.div
+                key={item}
+                className="insight-tag insight-tag-danger"
+                initial={{ opacity: 0, x: -8 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.16 + index * 0.05, duration: 0.25 }}
+              >
                 <span style={{ color: 'var(--color-danger)', fontSize: '0.6rem' }}>&#9679;</span>
                 {item}
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
@@ -44,7 +64,7 @@ const InsightsCard = ({ insights }) => {
           <p className="mt-1 leading-relaxed text-primary">{insights.recommendation}</p>
         </div>
       )}
-    </section>
+    </motion.section>
   );
 };
 
