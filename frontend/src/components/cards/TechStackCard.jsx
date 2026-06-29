@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+import { motion } from 'framer-motion';
 
 const EXPERTISE_COLORS = {
   'Expert': { bg: '#065f46', text: '#ecfdf5', border: '#059669' },
@@ -44,12 +45,18 @@ const TechStackCard = ({ techStack = [], languageBreakdown = [] }) => {
 
   if (resolvedStack.length === 0) {
     return (
-      <section className="card">
+      <motion.section
+        className="card"
+        initial={{ opacity: 0, y: 14 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.42, ease: [0.22, 1, 0.36, 1] }}
+        whileHover={{ y: -2 }}
+      >
         <h2 className="text-base font-semibold tracking-tight text-primary">Tech Stack</h2>
         <p className="mt-2 text-sm text-muted">
           No technology data available for this profile.
         </p>
-      </section>
+      </motion.section>
     );
   }
 
@@ -58,7 +65,13 @@ const TechStackCard = ({ techStack = [], languageBreakdown = [] }) => {
   const topHeadline = topTechs.map((t) => t.tech).join(' • ');
 
   return (
-    <section className="card">
+    <motion.section
+      className="card"
+      initial={{ opacity: 0, y: 14 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.42, ease: [0.22, 1, 0.36, 1] }}
+      whileHover={{ y: -2 }}
+    >
       <div>
         <h2 className="text-base font-semibold tracking-tight text-primary">Tech Stack</h2>
         <p className="mt-0.5 text-xs text-muted">
@@ -74,8 +87,13 @@ const TechStackCard = ({ techStack = [], languageBreakdown = [] }) => {
 
       {/* Tech organized by category */}
       <div className="mt-5 space-y-4">
-        {Object.entries(techByCategory).map(([category, techs]) => (
-          <div key={category}>
+        {Object.entries(techByCategory).map(([category, techs], index) => (
+          <motion.div
+            key={category}
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 + index * 0.06, duration: 0.26 }}
+          >
             <h3 className="mb-2.5 text-xs font-semibold uppercase tracking-widest text-gray-700">
               {category}
             </h3>
@@ -100,7 +118,7 @@ const TechStackCard = ({ techStack = [], languageBreakdown = [] }) => {
                 );
               })}
             </div>
-          </div>
+          </motion.div>
         ))}
       </div>
 
@@ -128,7 +146,7 @@ const TechStackCard = ({ techStack = [], languageBreakdown = [] }) => {
           <span className="font-semibold text-primary">{resolvedStack.length}</span> technologies detected
         </p>
       </div>
-    </section>
+    </motion.section>
   );
 };
 
