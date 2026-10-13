@@ -4,6 +4,7 @@
   "description": "DevTrack backend API",
   "main": "server.js",
   "scripts": {
+    "test": "node --test",
     "start": "node server.js",
     "dev": "node --watch server.js"
   },
@@ -13,5 +14,8 @@
   "dependencies": {
     "dotenv": "^17.4.2",
     "express": "^4.19.2"
+  },
+  "overrides": {
+    "qs": "^6.16.0"
   }
 }

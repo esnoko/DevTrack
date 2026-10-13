@@ -297,6 +297,16 @@ npm run dev
 
 Frontend default: http://localhost:5173
 
+## Development Checks and Agent Workflow
+
+Use Node 22 for development and CI. After installing root, backend, and frontend
+dependencies with `npm ci`, run `npm run check` from the repository root.
+It runs offline backend behavior tests and builds the frontend.
+
+See [development workflow](docs/development-workflow.md) for security checks,
+PR review, and GitHub branch protection setup, and [AGENTS.md](AGENTS.md) for
+project instructions used by coding agents.
+
 ## Deployment Notes
 
 - Frontend deploy target: Vercel, root directory frontend

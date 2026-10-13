@@ -4,6 +4,9 @@
   "version": "1.0.0",
   "description": "DevTrack monorepo",
   "scripts": {
+    "test": "npm --prefix backend test",
+    "build": "npm --prefix frontend run build",
+    "check": "npm test && npm run build",
     "start": "npm --prefix backend start",
     "dev": "npm --prefix backend run dev",
     "start:backend": "npm --prefix backend start",
