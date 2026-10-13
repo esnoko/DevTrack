@@ -1,4 +1,6 @@
-require('dotenv').config();
+if (require.main === module) {
+  require('dotenv').config();
+}
 
 const express = require('express');
 const githubRoutes = require('./routes/githubRoutes');
@@ -31,6 +33,10 @@ app.use('/api/v1/health', healthRoutes);
 app.use(notFound);
 app.use(errorHandler);
 
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+  });
+}
+
+module.exports = app;
