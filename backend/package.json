@@ -12,7 +12,7 @@
     "node": ">=18"
   },
   "dependencies": {
-    "dotenv": "^17.4.2",
+    "dotenv": "^18.0.7",
     "express": "^4.19.2"
   },
   "overrides": {
