@@ -53,9 +53,15 @@ and uses the standalone Gitleaks CLI image to scan full Git history with redacte
 output. CI has read-only repository permissions and receives no production secrets.
 Dependabot proposes weekly npm and Actions updates for review.
 
-These files do not change GitHub repository settings. In a branch ruleset for
-the default branch, require a PR, at least one approving human review, and the
-`Tests and frontend build`, `Dependency audit`, and `Secret scan` status checks.
+These files do not change GitHub repository settings. Protect the default branch
+by requiring a PR and the `Tests and frontend build`, `Dependency audit`, and
+`Secret scan` status checks. Require the branch to be current with the base branch
+and resolve review conversations before merging.
+
+DevTrack currently has one collaborator. Set required approvals to zero so the
+owner can review the diff and checks and merge their own PR. GitHub does not allow
+authors to approve their own PRs. Once another reviewer is available, consider
+requiring one approval and dismissing approvals when new changes are pushed.
 Enable dependency graph, secret scanning, and push protection where the repository
 plan supports them. Review bypass permissions so the rules have practical effect.
 
