@@ -47,6 +47,24 @@ If a real secret was committed, rotate it; removing the file alone is insufficie
 
 ## GitHub setup after pushing
 
+### Cost policy
+
+This workflow requires no paid subscription while DevTrack remains public.
+Standard GitHub-hosted runners are free for public repositories. The tests,
+npm audit, standalone Gitleaks CLI, and public-repository branch protections
+do not require paid tools. Do not switch to larger runners or add subscriptions
+without explicit approval.
+
+An account billing lock can still prevent GitHub from starting these free jobs.
+Check existing subscriptions in Billing and licensing; the workflow does not
+require upgrading or adding a payment method. GitHub documents downgrading to
+Free as an option for locked accounts with public repositories. Existing charges
+and separate subscriptions must be checked independently.
+
+References: [standard runners](https://docs.github.com/en/actions/reference/runners/github-hosted-runners),
+[locked accounts](https://docs.github.com/en/billing/how-tos/troubleshooting/locked-account),
+and [downgrading plans](https://docs.github.com/en/billing/how-tos/manage-plan-and-licenses/downgrade-plan).
+
 The `CI` workflow runs for PRs and pushes to main/master. It runs offline tests,
 the production build, audits all lockfiles (blocking high/critical advisories),
 and uses the standalone Gitleaks CLI image to scan full Git history with redacted

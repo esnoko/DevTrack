@@ -33,6 +33,14 @@ On Windows PowerShell, use `npm.cmd` if execution policy blocks `npm.ps1`.
 4. Report the resulting behavior, validation, and any remaining limitations.
    PRs should include evidence of checks and require human review before merging.
 
+## Cost policy
+
+Keep this workflow free to operate. Do not introduce paid services, subscriptions,
+larger GitHub runners, or billable usage without explicit user authorization.
+The public repository uses standard GitHub-hosted runners, Node's built-in tests,
+npm audit, and the standalone Gitleaks CLI. An account billing lock is separate
+from these tools' pricing; do not remove security checks merely to hide that lock.
+
 ## Access boundaries
 
 Use the coding tool's actual sandbox controls to limit writes to this checkout
