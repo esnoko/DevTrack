@@ -13,6 +13,6 @@
     "dev:backend": "npm --prefix backend run dev"
   },
   "devDependencies": {
-    "concurrently": "^10.0.3"
+    "concurrently": "^10.0.7"
   }
 }
